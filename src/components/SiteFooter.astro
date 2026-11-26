@@ -1,0 +1,18 @@
+---
+import FooterNav from './FooterNav.astro';
+import { inlineMarkdown } from '../lib/inline-markdown';
+import { site } from '../lib/site';
+
+const { note, author } = site.footer;
+---
+
+<footer class="site-footer">
+  <span set:html={inlineMarkdown(note)} />
+  <FooterNav />
+  {author && (
+    <a class="footer-author" href={author.href} target="_blank" rel="noopener noreferrer">
+      <img src={author.avatar} width="32" height="32" alt="" />
+      <span>{author.prefix && <><span class="footer-author-by">{author.prefix}</span>{' '}</>}{author.name}</span>
+    </a>
+  )}
+</footer>

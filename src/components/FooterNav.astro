@@ -1,0 +1,8 @@
+---
+import { headerLinks, isExternal, navPages } from '../lib/navigation';
+---
+
+<nav class="footer-nav" aria-label="Footer navigation">
+  {navPages.map((page) => <a href={page.href}>{page.title}</a>)}
+  {headerLinks.map((link) => <a href={link.href} target={isExternal(link.href) ? '_blank' : undefined} rel={isExternal(link.href) ? 'noopener noreferrer' : undefined}>{link.label}</a>)}
+</nav>

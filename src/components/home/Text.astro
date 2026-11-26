@@ -1,0 +1,12 @@
+---
+import type { TextSection } from '../../lib/home';
+import { inlineMarkdown } from '../../lib/inline-markdown';
+
+type Props = TextSection;
+
+const { id, title, body } = Astro.props;
+---
+
+<section class="used-by" aria-labelledby={id}>
+  <header class="used-by-heading"><div><h2 id={id}>{title}</h2></div><p set:html={inlineMarkdown(body)} /></header>
+</section>

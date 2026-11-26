@@ -1,0 +1,25 @@
+---
+import type { ComparisonSection } from '../../lib/home';
+import { inlineMarkdown } from '../../lib/inline-markdown';
+
+type Props = ComparisonSection;
+
+const { id, title, description, columns, rows } = Astro.props;
+---
+
+<section class="guide-section" aria-labelledby={id}>
+  <header class="guide-heading">
+    <h2 id={id}>{title}</h2>
+    {description && <p set:html={inlineMarkdown(description)} />}
+  </header>
+  <div class="table-wrap" role="region" aria-labelledby={id} tabindex="0">
+    <table>
+      <thead><tr><td></td>{columns.map((column) => <th scope="col">{column}</th>)}</tr></thead>
+      <tbody>
+        {rows.map((row) => (
+          <tr><td>{row.label}{row.detail && <> <small class="comparison-detail">{row.detail}</small></>}</td>{row.values.map((value) => <td>{value}</td>)}</tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</section>

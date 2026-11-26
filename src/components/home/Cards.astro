@@ -1,0 +1,19 @@
+---
+import type { CardsSection } from '../../lib/home';
+
+type Props = CardsSection;
+
+const { id, title, cards } = Astro.props;
+---
+
+<section class="guide-section" aria-labelledby={id}>
+  <header class="guide-heading"><h2 id={id}>{title}</h2></header>
+  <nav class="guide-links" aria-label="Documentation">
+    {cards.map((card) => (
+      <a class="guide-link-card" href={card.href}>
+        <h3>{card.title}</h3>
+        <p>{card.description}</p>
+      </a>
+    ))}
+  </nav>
+</section>

@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import DocsNavigation from '../components/DocsNavigation.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import Install from '../components/Install.astro';
+import CodeBlock from '../components/CodeBlock.astro';
+import Comparison from '../components/home/Comparison.astro';
+import Cards from '../components/home/Cards.astro';
+import Text from '../components/home/Text.astro';
+import { home } from '../content/home';
+import { inlineMarkdown } from '../lib/inline-markdown';
+import { homePageId } from '../lib/navigation';
+import { site } from '../lib/site';
+
+const { hero, sections } = home;
+const headings = sections.map((section) => ({ depth: 2, slug: section.id, text: section.title }));
+---
+
+<BaseLayout markdownPath="/index.md" description={site.description}>
+  <main id="top" class="docs-page home-page">
+    <SiteHeader current={homePageId} headings={headings} />
+    <div class="docs-layout home-layout">
+      <DocsNavigation class="docs-toc" current={homePageId} headings={headings} />
+      <div class="home-content">
+        <section class="hero-shell">
+          <div class="hero-grid">
+            <div class="hero-copy">
+              {hero.logo && (hero.logo.alt
+                ? <img class="hero-logo" src={hero.logo.src} alt={hero.logo.alt} width={hero.logo.width} height={hero.logo.height} />
+                : <img class="hero-logo" src={hero.logo.src} alt="" width={hero.logo.width} height={hero.logo.height} />)}
+              <h1 class="lede" set:html={inlineMarkdown(hero.lede)} />
+            </div>
+          </div>
+        </section>
+
+        {sections.map((section) => {
+          switch (section.type) {
+            case 'custom': {
+              const Section = section.component;
+              return <Section id={section.id} title={section.title} />;
+            }
+            case 'comparison': return <Comparison {...section} />;
+            case 'cards': return <Cards {...section} />;
+            case 'text': return <Text {...section} />;
+            case 'install': return (
+              <Install headingId={section.id} title={section.title}>
+                {section.description && <p slot="description" class="get-started-link" set:html={inlineMarkdown(section.description)} />}
+                {section.note && <p class="install-note" set:html={inlineMarkdown(section.note)} />}
+                {section.code && <CodeBlock language={section.code.language} code={section.code.source} />}
+              </Install>
+            );
+          }
+        })}
+
+        <SiteFooter />
+      </div>
+    </div>
+  </main>
+</BaseLayout>

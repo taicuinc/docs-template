@@ -1,0 +1,18 @@
+// The display font is the interface's font: the wordmark, headings, navigation, labels, and
+// controls. Paragraphs, lists, and table cells stay in the text font, and code in the mono font.
+:root :is(
+  .wordmark, h1, h2, h3,
+  .docs-navigation, .header-action, .text-action, .button,
+  .mobile-docs-panel, .command-palette, .segmented-control,
+  .doc-code figcaption, th, .site-footer, .not-found
+) {
+  font-family: var(--font-display);
+  // Geist Pixel has one weight. A heavier one is not synthesized.
+  font-synthesis-weight: none;
+  letter-spacing: normal;
+}
+
+// Headings differ from the text around them by font and color, not by weight.
+:root :is(.wordmark, h1, h2, h3) {
+  font-weight: 400;
+}
