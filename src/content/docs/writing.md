@@ -21,6 +21,7 @@ order: 2
 | `title` | `string` | The page's heading and its name in the navigation. |
 | `description` | `string` | The page's description for search engines and search results. |
 | `order` | `number` | The page's place in the navigation. Pages without one come last, by title. |
+| `nav` | `boolean` | `false` keeps the page out of the navigation. It is still built and searchable. |
 
 ## Headings
 

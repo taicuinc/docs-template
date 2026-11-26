@@ -1,5 +1,5 @@
 import { docs } from './docs';
-import { navPages } from './navigation';
+import { allPages } from './navigation';
 import type { SearchItem } from './search';
 
 const plainText = (value: string) => value
@@ -29,7 +29,7 @@ function sections(source: string): Section[] {
 }
 
 export function buildSearchIndex(): SearchItem[] {
-  const pages: SearchItem[] = navPages.map((page) => ({ title: page.title, kind: 'page', category: 'Docs', summary: page.summary ?? '', href: page.href }));
+  const pages: SearchItem[] = allPages.map((page) => ({ title: page.title, kind: 'page', category: 'Docs', summary: page.summary ?? '', href: page.href }));
   const entries: SearchItem[] = [];
   for (const doc of docs) {
     const { frontmatter, getHeadings } = doc.module;

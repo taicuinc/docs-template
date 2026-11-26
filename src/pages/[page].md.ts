@@ -6,8 +6,11 @@ export function getStaticPaths() {
   return docs.map((doc) => ({ params: { page: doc.id } }));
 }
 
-export const GET: APIRoute = ({ params }) => new Response(getDoc(params.page!).source.replace(/^(---\n[\s\S]*?)^order: .*\n/m, '$1').replace(
-  /^title: (.+)$/m, (_line, title: string) => `title: ${formatPageTitle(title)}`,
-), {
+// The page's source, without the fields that only place it in this site's navigation.
+const markdown = (source: string) => source.replace(/^---\n[\s\S]*?\n---\n/, (frontmatter) => frontmatter
+  .replace(/^(?:order|nav): .*\n/gm, '')
+  .replace(/^title: (.+)$/m, (_line, title: string) => `title: ${formatPageTitle(title)}`));
+
+export const GET: APIRoute = ({ params }) => new Response(markdown(getDoc(params.page!).source), {
   headers: { 'Content-Type': 'text/markdown; charset=utf-8' },
 });
