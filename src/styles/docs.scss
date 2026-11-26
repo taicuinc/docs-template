@@ -167,6 +167,13 @@
   > .doc-code {
     margin-block: 28px;
   }
+  img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin-block: 28px;
+    border-radius: var(--radius-panel);
+  }
 }
 .not-found {
   width: min(var(--page-width), var(--reading));

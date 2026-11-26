@@ -59,6 +59,10 @@ Tables scroll sideways on a narrow screen. A row whose first cell is `code` is i
 
 > **Note.** A blockquote is drawn as a panel. Use it for something the reader should not miss.
 
+## Images
+
+Keep images in `src/assets` and link them by relative path: `![A terminal](../../assets/terminal.png)`. They are resized and converted to WebP when the site is built.
+
 ## Links
 
 Link to another page with `[Theming](/theming)` and to a section with `[Code](#code)`. Links to other sites open in a new tab.
